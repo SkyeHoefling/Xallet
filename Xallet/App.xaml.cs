@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Xallet.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Xallet.Services;
-using Xallet.Views;
 
 namespace Xallet
 {
@@ -13,8 +10,7 @@ namespace Xallet
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new WalletPage();
         }
 
         protected override void OnStart()
