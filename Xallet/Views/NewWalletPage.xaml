@@ -13,7 +13,7 @@
     </ContentPage.BindingContext>
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Scan" Clicked="ScanClicked" />
+        <ToolbarItem Text="Scan" Command="{Binding Scan}" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

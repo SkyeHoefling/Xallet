@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using ZXing;
 using ZXing.Mobile;
 
 namespace Xallet.ViewModels
 {
-    public class ScanViewModel
+    public class ScanViewModel : BindableBase
     {
         public ScanViewModel()
         {
@@ -23,11 +24,19 @@ namespace Xallet.ViewModels
         public ICommand ScanResult { get; }
         public MobileBarcodeScanningOptions ScannerOptions { get; }
 
+        private bool _isScanning = true;
+        public bool IsScanning
+        {
+            get => _isScanning;
+            set => SetProperty(ref _isScanning, value);
+        }
+
         private void OnScanResult(object item)
         {
             if (item is Result result)
             {
-                //result.Text
+                MessagingCenter.Instance.Send(this, "QRScanReceived", result);
+                MainThread.BeginInvokeOnMainThread(() => App.Current.MainPage.Navigation.PopAsync());
             }
         }
     }
