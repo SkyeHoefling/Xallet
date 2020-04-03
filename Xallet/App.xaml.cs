@@ -10,7 +10,7 @@ namespace Xallet
         {
             InitializeComponent();
 
-            MainPage = new WalletPage();
+            MainPage = new NavigationPage(new WalletPage());
         }
 
         protected override void OnStart()

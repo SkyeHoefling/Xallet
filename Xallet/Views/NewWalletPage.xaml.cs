@@ -6,16 +6,16 @@ using Xamarin.Forms.Xaml;
 namespace Xallet.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class WalletPage : ContentPage
+    public partial class NewWalletPage : ContentPage
     {
-        public WalletPage()
+        public NewWalletPage()
         {
             InitializeComponent();
         }
 
-        private void AddItemClicked(object sender, EventArgs e)
+        private void ScanClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new NewWalletPage());
+            Navigation.PushAsync(new ScanPage());
         }
     }
 }

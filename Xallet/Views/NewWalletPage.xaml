@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Xallet.ViewModels"
+             mc:Ignorable="d"
+             Title="Add New Wallet"
+             x:Class="Xallet.Views.NewWalletPage">
+
+    <ContentPage.BindingContext>
+        <vm:NewWalletViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Scan" Clicked="ScanClicked" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10, 15">
+            <Entry Placeholder="Wallet Name" Text="{Binding Name, Mode=TwoWay}"/>
+            <Entry Placeholder="Wallet Public Key or Address" Text="{Binding Address, Mode=TwoWay}" />
+            <Button Margin="0, 30" Text="Save" Command="{Binding Save}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
