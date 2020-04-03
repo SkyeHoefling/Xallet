@@ -3,14 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:zx="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:vm="clr-namespace:Xallet.ViewModels"
              mc:Ignorable="d"
              Title="Scan QR Code"
              x:Class="Xallet.Views.ScanPage">
+    <ContentPage.BindingContext>
+        <vm:ScanViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <zx:ZXingScannerView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" IsScanning="True"
+                                 Options="{Binding ScannerOptions}" ScanResultCommand="{Binding ScanResult}">
+            </zx:ZXingScannerView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
