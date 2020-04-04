@@ -101,6 +101,7 @@ namespace Xallet.Services
 
             async Task BitcoinAsync()
             {
+                // we should be able to use this api - https://www.blockchain.com/api/blockchain_wallet_api
                 var bitcoinAccounts = accounts.Where(x => x.CryptoCurrency == CryptoCurrency.Bitcoin).ToArray();
                 await Task.Delay(0);
             }
