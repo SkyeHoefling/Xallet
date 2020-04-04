@@ -5,6 +5,13 @@ namespace Xallet.Models
 {
     public class Wallet : BindableBase
     {
+        private string _id;
+        public string Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
+
         private string _address;
         public string Address
         {

@@ -21,15 +21,17 @@ namespace Xallet.ViewModels
             WalletService = new WalletService();
             FiatService = new FiatService();
 
-            MessagingCenter.Instance.Subscribe<NewWalletViewModel, WalletEntity>(this, "NewWallet", OnNewWallet);
+            MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
             Add = new Command(OnAdd);
             ShowCode = new Command<Wallet>(OnShowCode);
+            EditWallet = new Command<Wallet>(OnEditWallet);
             
             Initialize();
         }
 
         public ICommand Add { get; }
         public ICommand ShowCode { get; }
+        public ICommand EditWallet { get; }
 
         private Amount _totalAmount;
         public Amount TotalAmount
@@ -76,7 +78,7 @@ namespace Xallet.ViewModels
 
         private void OnAdd()
         {
-            App.Current.MainPage.Navigation.PushAsync(new Views.NewWalletPage());
+            App.Current.MainPage.Navigation.PushAsync(new AddOrUpdateWalletPage());
         }
 
         private bool _isShowingCode = false;
@@ -90,7 +92,18 @@ namespace Xallet.ViewModels
             _isShowingCode = false;
         }
 
-        private void OnNewWallet(NewWalletViewModel sender, WalletEntity args)
+        private bool _isEditing = false;
+        private void OnEditWallet(Wallet item)
+        {
+            if (_isEditing)
+                return;
+
+            _isEditing = true;
+            App.Current.MainPage.Navigation.PushAsync(new AddOrUpdateWalletPage(item));
+            _isEditing = false;
+        }
+
+        private void OnNewWallet(AddOrUpdateWalletViewModel sender, WalletEntity args)
         {
             if (args != null)
                 Initialize();

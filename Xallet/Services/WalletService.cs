@@ -44,6 +44,19 @@ namespace Xallet.Services
             };
         }
 
+        public WalletEntity UpdateWallet(string id, string name, string address)
+        {
+            var findEntity = Connection.Find<WalletEntity>(id);
+            if (findEntity == null)
+                return AddWallet(name, address);
+
+            findEntity.FriendlyName = name;
+            findEntity.PublicAddress = address;
+
+            Connection.InsertOrReplace(findEntity);
+            return findEntity;
+        }
+
         public void RemoveWallet(string id)
         {
             var findWallet = Connection.Find<WalletEntity>(id);

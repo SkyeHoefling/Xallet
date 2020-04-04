@@ -3,15 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:Xallet.ViewModels"
              mc:Ignorable="d"
              Title="Add New Wallet"
-             x:Class="Xallet.Views.NewWalletPage">
+             x:Class="Xallet.Views.AddOrUpdateWalletPage">
 
-    <ContentPage.BindingContext>
-        <vm:NewWalletViewModel />
-    </ContentPage.BindingContext>
-    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Scan" Command="{Binding Scan}" />
     </ContentPage.ToolbarItems>

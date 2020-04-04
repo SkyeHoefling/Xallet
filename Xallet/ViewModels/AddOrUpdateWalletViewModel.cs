@@ -1,22 +1,33 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Xallet.Data;
+using Xallet.Models;
 using Xallet.Services;
 using Xamarin.Forms;
 using ZXing;
 
 namespace Xallet.ViewModels
 {
-    public class NewWalletViewModel : BindableBase
+    public class AddOrUpdateWalletViewModel : BindableBase
     {
-        public NewWalletViewModel()
+        public AddOrUpdateWalletViewModel()
         {
             Scan = new Command(OnScan);
             Save = new Command(OnSave);
             MessagingCenter.Instance.Subscribe<ScanViewModel, Result>(this, "QRScanReceived", OnScanReceived);
         }
+
+        private string _walletId;
+        public AddOrUpdateWalletViewModel(Wallet wallet) :this()
+        {
+            Name = wallet.Name;
+            Address = wallet.Address;
+            _walletId = wallet.Id;
+        }
         
         public ICommand Scan { get; }
         public ICommand Save { get; }
+
+
 
         private string _name;
         public string Name
@@ -53,8 +64,14 @@ namespace Xallet.ViewModels
             
 
             var service = new WalletService();
-            var entity = service.AddWallet(Name, Address);
-            MessagingCenter.Instance.Send(this, "NewWallet", entity);
+            var entity = default(WalletEntity);
+
+            if (string.IsNullOrWhiteSpace(_walletId))
+                entity = service.AddWallet(Name, Address);
+            else
+                entity = service.UpdateWallet(_walletId, Name, Address);
+
+            MessagingCenter.Instance.Send(this, "AddOrUpdateWallet", entity);
             App.Current.MainPage.Navigation.PopAsync();
         }
 

@@ -41,6 +41,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid HorizontalOptions="FillAndExpand">
+                            <!-- TODO - Determine better way to handle hit-boxes -->
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.EditWallet, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
                             <StackLayout Padding="10">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>

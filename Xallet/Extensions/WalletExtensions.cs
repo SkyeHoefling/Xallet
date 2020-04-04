@@ -10,6 +10,7 @@ namespace Xallet.Extensions
         {
             return new Wallet
             {
+                Id = entity.Id,
                 Name = entity.FriendlyName,
                 Address = entity.PublicAddress,
                 TokenType = entity.CryptoCurrency,
