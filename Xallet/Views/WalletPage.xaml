@@ -21,6 +21,9 @@
         <StackLayout>
             <CollectionView Header="{Binding TotalAmount}"
                             ItemsSource="{Binding Wallets}">
+                <CollectionView.EmptyView>
+                    <Label Text="Add new wallet to get started" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+                </CollectionView.EmptyView>
                 <CollectionView.HeaderTemplate>
                     <DataTemplate>
                         <Grid HorizontalOptions="FillAndExpand" Padding="0,15">

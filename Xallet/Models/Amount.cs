@@ -1,8 +1,21 @@
-﻿namespace Xallet.Models
+﻿using Xallet.ViewModels;
+
+namespace Xallet.Models
 {
-    public class Amount
+    public class Amount : BindableBase
     {
-        public double Value { get; set; }
-        public string Currency { get; set; }
+        private double _value;
+        public double Value
+        {
+            get => _value;
+            set => SetProperty(ref _value, value);
+        }
+
+        private string _currency;
+        public string Currency
+        {
+            get => _currency;
+            set => SetProperty(ref _currency, value);
+        }
     }
 }
