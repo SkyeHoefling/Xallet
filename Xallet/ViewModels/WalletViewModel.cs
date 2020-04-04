@@ -27,7 +27,12 @@ namespace Xallet.ViewModels
 
         public ICommand Add { get; }
 
-        public Amount TotalAmount { get; set; }
+        private Amount _totalAmount;
+        public Amount TotalAmount
+        {
+            get => _totalAmount;
+            set => SetProperty(ref _totalAmount, value);
+        }
 
         private ObservableCollection<Wallet> _wallets;
         public ObservableCollection<Wallet> Wallets
@@ -61,7 +66,7 @@ namespace Xallet.ViewModels
 
             TotalAmount = new Amount
             {
-                Value = Wallets == null || Wallets.Count == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x,y) => x + y),
+                Value = Wallets == null || Wallets.Count() == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x, y) => x + y),
                 Currency = "USD"
             };
         }
@@ -73,15 +78,8 @@ namespace Xallet.ViewModels
 
         private void OnNewWallet(NewWalletViewModel sender, WalletEntity args)
         {
-            // TODO: this needs to work with LoadData
-            var rate = FiatService.GetCurrentRate(args.CryptoCurrency);
-            var newWallet = args.ToWallet(rate);
-
-            var tempWallets = Wallets.ToList();
-            tempWallets.Add(newWallet);
-
-            var orderedWallets = tempWallets.OrderBy(x => x.Name).ToList();
-            Wallets = new ObservableCollection<Wallet>(orderedWallets);
+            if (args != null)
+                Initialize();
         }
     }
 }
