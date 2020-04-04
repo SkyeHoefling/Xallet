@@ -63,6 +63,20 @@ namespace Xallet.ViewModels
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        private double _etherFiatValue;
+        public double EtherFiatValue
+        {
+            get => _etherFiatValue;
+            set => SetProperty(ref _etherFiatValue, value);
+        }
+
+        private double _bitcoinFiatValue;
+        public double BitcoinFiatValue
+        {
+            get => _bitcoinFiatValue;
+            set => SetProperty(ref _bitcoinFiatValue, value);
+        }
+
         private ObservableCollection<Wallet> _wallets;
         public ObservableCollection<Wallet> Wallets
         {
@@ -82,12 +96,17 @@ namespace Xallet.ViewModels
 
         private void LoadLocalData()
         {
+            var etherFiat = FiatService.GetCurrentRate(CryptoCurrency.Ethereum);
+            var bitcoinFiat = FiatService.GetCurrentRate(CryptoCurrency.Bitcoin);
+            EtherFiatValue = etherFiat.Rate;
+            BitcoinFiatValue = bitcoinFiat.Rate;
+
             var wallets = WalletService
                 .GetWallets()
                 .OrderBy(x => x.FriendlyName)
                 .Select(x =>
                 {
-                    var rate = FiatService.GetCurrentRate(x.CryptoCurrency);
+                    var rate = x.CryptoCurrency == CryptoCurrency.Bitcoin ? bitcoinFiat : etherFiat;
                     return x.ToWallet(rate);
                 });
 
