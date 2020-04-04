@@ -123,7 +123,6 @@ namespace Xallet.Services
                 };
 
                 Connection.InsertOrReplace(newEntity);
-                await Task.Delay(0);
             }
         }
     }
