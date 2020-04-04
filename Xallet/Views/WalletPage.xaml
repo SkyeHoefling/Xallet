@@ -55,11 +55,12 @@
                                         <Label Text="{Binding Token.Value}" FontSize="16" />
                                         <Label Text="{Binding Token.Currency}" FontSize="15" />
                                     </StackLayout>
-                                    <StackLayout HorizontalOptions="EndAndExpand">
-                                        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
-                                            <Label Text="{Binding LocalCurrency.Value}" FontAttributes="Bold" FontSize="18" />
-                                            <Label Text="{Binding LocalCurrency.Currency}" FontSize="18" />
-                                        </StackLayout>
+                                    <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Label Text="{Binding LocalCurrency.Value}" FontAttributes="Bold" FontSize="18" />
+                                        <Label Text="{Binding LocalCurrency.Currency}" FontSize="18" />
                                     </StackLayout>
                                 </StackLayout>
                                 <BoxView HeightRequest="1" BackgroundColor="Black" />
