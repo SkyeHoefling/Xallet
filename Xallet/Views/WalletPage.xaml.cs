@@ -10,6 +10,7 @@ namespace Xallet.Views
         public WalletPage()
         {
             InitializeComponent();
+            
         }
     }
 }

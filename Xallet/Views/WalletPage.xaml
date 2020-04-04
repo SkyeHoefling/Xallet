@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:Xallet.ViewModels"
              mc:Ignorable="d"
              Title="Blockchain Wallet"
+             x:Name="Root"
              x:Class="Xallet.Views.WalletPage">
     
     <ContentPage.BindingContext>
@@ -43,7 +44,11 @@
                             <StackLayout Padding="10">
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
-                                    <Image Source="tab_feed.png" HeightRequest="25" HorizontalOptions="EndAndExpand" />
+                                    <Image Source="tab_feed.png" HeightRequest="25" HorizontalOptions="EndAndExpand">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                     <StackLayout Spacing="0">

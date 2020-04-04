@@ -6,6 +6,7 @@ using Xallet.Data;
 using Xallet.Extensions;
 using Xallet.Models;
 using Xallet.Services;
+using Xallet.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -22,11 +23,13 @@ namespace Xallet.ViewModels
 
             MessagingCenter.Instance.Subscribe<NewWalletViewModel, WalletEntity>(this, "NewWallet", OnNewWallet);
             Add = new Command(OnAdd);
+            ShowCode = new Command<Wallet>(OnShowCode);
             
             Initialize();
         }
 
         public ICommand Add { get; }
+        public ICommand ShowCode { get; }
 
         private Amount _totalAmount;
         public Amount TotalAmount
@@ -74,6 +77,17 @@ namespace Xallet.ViewModels
         private void OnAdd()
         {
             App.Current.MainPage.Navigation.PushAsync(new Views.NewWalletPage());
+        }
+
+        private bool _isShowingCode = false;
+        private void OnShowCode(Wallet item)
+        {
+            if (_isShowingCode)
+                return;
+
+            _isShowingCode = true;
+            App.Current.MainPage.Navigation.PushAsync(new AddressCodePage(item));
+            _isShowingCode = false;
         }
 
         private void OnNewWallet(NewWalletViewModel sender, WalletEntity args)
