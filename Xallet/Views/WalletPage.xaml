@@ -19,9 +19,9 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <StackLayout>
-            <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                         Command="{Binding Refresh}">
+        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                     Command="{Binding Refresh}">
+            <StackLayout>
                 <CollectionView Header="{Binding TotalAmount}"
                                 ItemsSource="{Binding Wallets}">
                     <CollectionView.EmptyView>
@@ -77,7 +77,34 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-            </RefreshView>
-        </StackLayout>
+                <Grid HorizontalOptions="FillAndExpand" Margin="0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <ResourceDictionary>
+                            <Style x:Key="TotalLabel" TargetType="Label">
+                                <Setter Property="FontSize" Value="22" />
+                                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                            </Style>
+                            <Style x:Key="TotalValueLabel" TargetType="Label">
+                                <Setter Property="FontSize" Value="22" />
+                                <Setter Property="FontAttributes" Value="Bold" />
+                                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                            </Style>
+                        </ResourceDictionary>
+                    </Grid.Resources>
+                    <StackLayout Grid.Column="0">
+                        <Label Text="Total Ethereum" Style="{StaticResource TotalLabel}" />
+                        <Label Text="{Binding TotalEther.Value}" Style="{StaticResource TotalValueLabel}" />
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="Total Bitcoin" Style="{StaticResource TotalLabel}" />
+                        <Label Text="{Binding TotalBitcoin.Value}" Style="{StaticResource TotalValueLabel}" />
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

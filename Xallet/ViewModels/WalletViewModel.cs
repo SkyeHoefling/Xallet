@@ -42,6 +42,20 @@ namespace Xallet.ViewModels
             set => SetProperty(ref _totalAmount, value);
         }
 
+        private Amount _totalEther;
+        public Amount TotalEther
+        {
+            get => _totalEther;
+            set => SetProperty(ref _totalEther, value);
+        }
+
+        private Amount _totalBitcoin;
+        public Amount TotalBitcoin
+        {
+            get => _totalBitcoin;
+            set => SetProperty(ref _totalBitcoin, value);
+        }
+
         private bool _isRefreshing;
         public bool IsRefreshing
         {
@@ -82,6 +96,18 @@ namespace Xallet.ViewModels
             {
                 Value = Math.Round(Wallets == null || Wallets.Count() == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x, y) => x + y), 2),
                 Currency = "USD"
+            };
+
+            TotalEther = new Amount
+            {
+                Value = Wallets.Where(x => x.TokenType == CryptoCurrency.Ethereum).Select(x => x.Token.Value).Aggregate((x, y) => x + y),
+                Currency = "ETH"
+            };
+
+            TotalBitcoin = new Amount
+            {
+                Value = Wallets.Where(x => x.TokenType == CryptoCurrency.Bitcoin).Select(x => x.Token.Value).Aggregate((x, y) => x + y),
+                Currency = "BTC"
             };
         }
 
