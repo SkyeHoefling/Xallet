@@ -17,6 +17,8 @@ namespace Xallet.ViewModels
             ScannerOptions = new MobileBarcodeScanningOptions
             {
                 AutoRotate = true,
+                TryHarder = true,
+                TryInverted = true,
                 PossibleFormats = new List<BarcodeFormat>(new[] { BarcodeFormat.QR_CODE })
             };
         }
