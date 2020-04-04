@@ -101,8 +101,28 @@ namespace Xallet.Services
 
             async Task BitcoinAsync()
             {
-                // we should be able to use this api - https://www.blockchain.com/api/blockchain_wallet_api
+                var blockchainService = new BlockchainService();
                 var bitcoinAccounts = accounts.Where(x => x.CryptoCurrency == CryptoCurrency.Bitcoin).ToArray();
+                var bitcoinValues = await blockchainService.GetAccountBalanceAsync(bitcoinAccounts.Select(x => x.PublicAddress).ToArray());
+                for (int index = 0; index < bitcoinAccounts.Length; index++)
+                {
+                    bitcoinAccounts[index].CachedValue = bitcoinValues[index];
+                    bitcoinAccounts[index].Timestamp = DateTime.UtcNow;
+
+                    Connection.InsertOrReplace(bitcoinAccounts[index]);
+                }
+
+                var bitcoinUSD = await blockchainService.GetCryptoValueAsync();
+                var newEntity = new ConversionRateEntity
+                {
+                    Id = $"{Guid.NewGuid()}",
+                    Crypto = CryptoCurrency.Bitcoin,
+                    Fiat = FiatCurrency.USD,
+                    Rate = bitcoinUSD,
+                    Timestamp = DateTime.UtcNow
+                };
+
+                Connection.InsertOrReplace(newEntity);
                 await Task.Delay(0);
             }
         }
