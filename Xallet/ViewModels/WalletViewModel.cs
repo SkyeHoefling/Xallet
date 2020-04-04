@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using Xallet.Data;
@@ -63,10 +64,9 @@ namespace Xallet.ViewModels
                 });
 
             Wallets = new ObservableCollection<Wallet>(wallets);
-
             TotalAmount = new Amount
             {
-                Value = Wallets == null || Wallets.Count() == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x, y) => x + y),
+                Value = Math.Round(Wallets == null || Wallets.Count() == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x, y) => x + y), 2),
                 Currency = "USD"
             };
         }

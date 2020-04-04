@@ -1,4 +1,5 @@
-﻿using Xallet.Data;
+﻿using System;
+using Xallet.Data;
 using Xallet.Models;
 
 namespace Xallet.Extensions
@@ -20,7 +21,7 @@ namespace Xallet.Extensions
                 LocalCurrency = new Amount
                 {
                     Currency = $"{fiatRate.Fiat}",
-                    Value = fiatRate.Rate * entity.CachedValue
+                    Value = Math.Round(fiatRate.Rate * entity.CachedValue, 2)
                 }
             };
         }
