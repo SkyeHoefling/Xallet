@@ -13,9 +13,59 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <CollectionView Header="{Binding Wallet}"
+                            ItemsSource="{Binding Transactions}">
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="No Transactions" FontAttributes="Bold" FontSize="22" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <StackLayout HorizontalOptions="FillAndExpand" Margin="0, 0, 0, 20">
+                            <Grid HorizontalOptions="FillAndExpand" Margin="20, 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Frame Grid.Column="0">
+                                    <StackLayout>
+                                        <Label Text="Total Amount" FontSize="22" HorizontalOptions="CenterAndExpand"/>
+                                        <Label Text="$123.88" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </Frame>
+                                <Frame Grid.Column="1">
+                                    <StackLayout>
+                                        <Label Text="Total Coins" FontSize="22" HorizontalOptions="CenterAndExpand"/>
+                                        <Label Text="$123.88" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                            <Label Text="Transactions" FontSize="22" Margin="20,0" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Frame Margin="20, 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Label Text="5 BTC" />
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1">
+                                        <Label Text="In Progress" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

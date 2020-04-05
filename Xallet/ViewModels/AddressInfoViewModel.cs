@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Xallet.Data;
 using Xallet.Models;
 using Xallet.Views;
@@ -15,6 +16,8 @@ namespace Xallet.ViewModels
             Edit = new Command(OnEdit);
             Back = new Command<bool>(OnBack);
             MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
+
+            Transactions = new ObservableCollection<string>(new[] { "Hello", "World" });
         }
 
         public ICommand Edit { get; }
@@ -25,6 +28,13 @@ namespace Xallet.ViewModels
         {
             get => _wallet;
             set => SetProperty(ref _wallet, value);
+        }
+
+        private ObservableCollection<string> _transactions;
+        public ObservableCollection<string> Transactions
+        {
+            get => _transactions;
+            set => SetProperty(ref _transactions, value);
         }
 
         private void OnEdit()
