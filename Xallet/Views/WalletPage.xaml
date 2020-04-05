@@ -87,33 +87,51 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Grid HorizontalOptions="FillAndExpand" Margin="0,15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.Resources>
-                        <ResourceDictionary>
-                            <Style x:Key="TotalLabel" TargetType="Label">
-                                <Setter Property="FontSize" Value="22" />
-                                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                            </Style>
-                            <Style x:Key="TotalValueLabel" TargetType="Label">
-                                <Setter Property="FontSize" Value="22" />
-                                <Setter Property="FontAttributes" Value="Bold" />
-                                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                            </Style>
-                        </ResourceDictionary>
-                    </Grid.Resources>
-                    <StackLayout Grid.Column="0">
-                        <Label Text="Total Ethereum" Style="{StaticResource TotalLabel}" />
-                        <Label Text="{Binding TotalEther.Value}" Style="{StaticResource TotalValueLabel}" />
-                    </StackLayout>
-                    <StackLayout Grid.Column="1">
-                        <Label Text="Total Bitcoin" Style="{StaticResource TotalLabel}" />
-                        <Label Text="{Binding TotalBitcoin.Value}" Style="{StaticResource TotalValueLabel}" />
-                    </StackLayout>
-                </Grid>
+                <SwipeView Margin="0, -6, 0, 0" Padding="0">
+                    <SwipeView.LeftItems>
+                        <SwipeItemView>
+                            <StackLayout BackgroundColor="#28566f" Padding="30,0" HorizontalOptions="CenterAndExpand" Spacing="-40">
+                                <Label Text="Market Price" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                <Label Text="{Binding EtherFiatValue}" FontAttributes="Bold" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </SwipeItemView>
+                    </SwipeView.LeftItems>
+                    <SwipeView.RightItems>
+                        <SwipeItemView>
+                            <StackLayout BackgroundColor="#f6a319" Padding="30,0" HorizontalOptions="CenterAndExpand" Spacing="-40">
+                                <Label Text="Market Price" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                                <Label Text="{Binding BitcoinFiatValue}" FontAttributes="Bold" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </SwipeItemView>
+                    </SwipeView.RightItems>
+                    <Grid HorizontalOptions="FillAndExpand" BackgroundColor="#e4e4e4" Margin="0, 0, 0, 15" Padding="0, 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <Style x:Key="TotalLabel" TargetType="Label">
+                                    <Setter Property="FontSize" Value="22" />
+                                    <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                                </Style>
+                                <Style x:Key="TotalValueLabel" TargetType="Label">
+                                    <Setter Property="FontSize" Value="22" />
+                                    <Setter Property="FontAttributes" Value="Bold" />
+                                    <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                                </Style>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+                        <StackLayout Grid.Column="0">
+                            <Label Text="Total Ethereum" Style="{StaticResource TotalLabel}" />
+                            <Label Text="{Binding TotalEther.Value}" Style="{StaticResource TotalValueLabel}" />
+                        </StackLayout>
+                        <StackLayout Grid.Column="1">
+                            <Label Text="Total Bitcoin" Style="{StaticResource TotalLabel}" />
+                            <Label Text="{Binding TotalBitcoin.Value}" Style="{StaticResource TotalValueLabel}" />
+                        </StackLayout>
+                    </Grid>
+                </SwipeView>
             </StackLayout>
         </RefreshView>
     </ContentPage.Content>
