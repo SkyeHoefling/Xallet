@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:a="clr-namespace:Xallet"
              mc:Ignorable="d"
              Title="{Binding Wallet.Name}"
              x:Class="Xallet.Views.AddressInfoPage">
@@ -12,7 +13,7 @@
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
             <CollectionView Header="{Binding Wallet}"
                             ItemsSource="{Binding Transactions}">
                 <CollectionView.EmptyView>
@@ -66,6 +67,14 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
+            <ImageButton Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static a:MaterialFont.Qrcode}, Color=White,Size=50}"
+                         Command="{Binding ShowCode}"
+                         VerticalOptions="EndAndExpand"
+                         HorizontalOptions="EndAndExpand"
+                         Margin="0,0, 20, 30"
+                         Padding="15"
+                         CornerRadius="50"
+                         BackgroundColor="Orange"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

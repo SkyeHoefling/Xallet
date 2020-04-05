@@ -15,6 +15,7 @@ namespace Xallet.ViewModels
             Wallet = wallet;
             Edit = new Command(OnEdit);
             Back = new Command<bool>(OnBack);
+            ShowCode = new Command(OnShowCode);
             MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
 
             Transactions = new ObservableCollection<string>(new[] { "Hello", "World" });
@@ -22,6 +23,7 @@ namespace Xallet.ViewModels
 
         public ICommand Edit { get; }
         public ICommand Back { get; }
+        public ICommand ShowCode { get; }
 
         private Wallet _wallet;
         public Wallet Wallet
@@ -56,6 +58,15 @@ namespace Xallet.ViewModels
             if (doNavigation)
                 App.Current.MainPage.Navigation.PopAsync();
 
+            _isBusy = false;
+        }
+
+        private void OnShowCode()
+        {
+            if (_isBusy)
+                return;
+
+            App.Current.MainPage.Navigation.PushAsync(new AddressCodePage(Wallet));
             _isBusy = false;
         }
 
