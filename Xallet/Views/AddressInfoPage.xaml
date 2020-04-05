@@ -31,13 +31,13 @@
                                 <Frame Grid.Column="0">
                                     <StackLayout>
                                         <Label Text="Total Amount" FontSize="22" HorizontalOptions="CenterAndExpand"/>
-                                        <Label Text="$123.88" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding LocalCurrency.Value}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                                     </StackLayout>
                                 </Frame>
                                 <Frame Grid.Column="1">
                                     <StackLayout>
                                         <Label Text="Total Coins" FontSize="22" HorizontalOptions="CenterAndExpand"/>
-                                        <Label Text="$123.88" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding Token.Value}" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                                     </StackLayout>
                                 </Frame>
                             </Grid>
