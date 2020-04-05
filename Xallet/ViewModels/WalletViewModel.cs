@@ -24,7 +24,7 @@ namespace Xallet.ViewModels
             MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
             Add = new Command(OnAdd);
             ShowCode = new Command<Wallet>(OnShowCode);
-            EditWallet = new Command<Wallet>(OnEditWallet);
+            OpenWallet = new Command<Wallet>(OnOpenWallet);
             Refresh = new Command(OnRefresh);
             Remove = new Command<Wallet>(OnRemove);
             
@@ -33,7 +33,7 @@ namespace Xallet.ViewModels
 
         public ICommand Add { get; }
         public ICommand ShowCode { get; }
-        public ICommand EditWallet { get; }
+        public ICommand OpenWallet { get; }
         public ICommand Refresh { get; }
         public ICommand Remove { get; }
 
@@ -149,13 +149,13 @@ namespace Xallet.ViewModels
         }
 
         private bool _isEditing = false;
-        private void OnEditWallet(Wallet item)
+        private void OnOpenWallet(Wallet item)
         {
             if (_isEditing)
                 return;
 
             _isEditing = true;
-            App.Current.MainPage.Navigation.PushAsync(new AddOrUpdateWalletPage(item));
+            App.Current.MainPage.Navigation.PushAsync(new AddressInfoPage(item));
             _isEditing = false;
         }
 

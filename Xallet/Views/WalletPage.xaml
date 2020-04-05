@@ -56,7 +56,7 @@
                                 <Grid HorizontalOptions="FillAndExpand">
                                     <!-- TODO - Determine better way to handle hit-boxes -->
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding BindingContext.EditWallet, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding BindingContext.OpenWallet, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                     </Grid.GestureRecognizers>
                                     <StackLayout Padding="10">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
