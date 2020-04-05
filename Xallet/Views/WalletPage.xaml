@@ -44,36 +44,46 @@
                     </CollectionView.HeaderTemplate>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalOptions="FillAndExpand">
-                                <!-- TODO - Determine better way to handle hit-boxes -->
-                                <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.EditWallet, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
-                                </Grid.GestureRecognizers>
-                                <StackLayout Padding="10">
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                        <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
-                                        <Image Source="tab_feed.png" HeightRequest="25" HorizontalOptions="EndAndExpand">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                    </StackLayout>
-                                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                        <StackLayout Spacing="0">
-                                            <Label Text="{Binding Token.Value}" FontSize="16" />
-                                            <Label Text="{Binding Token.Currency}" FontSize="15" />
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItem Text="Remove"
+                                                   Command="{Binding BindingContext.Remove, Source={x:Reference Root}}"
+                                                   CommandParameter="{Binding .}"
+                                                   BackgroundColor="LightPink" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Grid HorizontalOptions="FillAndExpand">
+                                    <!-- TODO - Determine better way to handle hit-boxes -->
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.EditWallet, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                    <StackLayout Padding="10">
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
+                                            <Image Source="tab_feed.png" HeightRequest="25" HorizontalOptions="EndAndExpand">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                                </Image.GestureRecognizers>
+                                            </Image>
                                         </StackLayout>
-                                        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
-                                            <StackLayout.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
-                                            </StackLayout.GestureRecognizers>
-                                            <Label Text="{Binding LocalCurrency.Value}" FontAttributes="Bold" FontSize="18" />
-                                            <Label Text="{Binding LocalCurrency.Currency}" FontSize="18" />
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{Binding Token.Value}" FontSize="16" />
+                                                <Label Text="{Binding Token.Currency}" FontSize="15" />
+                                            </StackLayout>
+                                            <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
+                                                </StackLayout.GestureRecognizers>
+                                                <Label Text="{Binding LocalCurrency.Value}" FontAttributes="Bold" FontSize="18" />
+                                                <Label Text="{Binding LocalCurrency.Currency}" FontSize="18" />
+                                            </StackLayout>
                                         </StackLayout>
+                                        <BoxView HeightRequest="1" BackgroundColor="Black" />
                                     </StackLayout>
-                                    <BoxView HeightRequest="1" BackgroundColor="Black" />
-                                </StackLayout>
-                            </Grid>
+                                </Grid>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

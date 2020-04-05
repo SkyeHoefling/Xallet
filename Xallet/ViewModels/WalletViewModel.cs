@@ -26,6 +26,7 @@ namespace Xallet.ViewModels
             ShowCode = new Command<Wallet>(OnShowCode);
             EditWallet = new Command<Wallet>(OnEditWallet);
             Refresh = new Command(OnRefresh);
+            Remove = new Command<Wallet>(OnRemove);
             
             Initialize();
         }
@@ -34,6 +35,7 @@ namespace Xallet.ViewModels
         public ICommand ShowCode { get; }
         public ICommand EditWallet { get; }
         public ICommand Refresh { get; }
+        public ICommand Remove { get; }
 
         private Amount _totalAmount;
         public Amount TotalAmount
@@ -171,6 +173,15 @@ namespace Xallet.ViewModels
             }
 
             IsRefreshing = false;
+        }
+
+        private void OnRemove(Wallet wallet)
+        {
+            if (wallet == null)
+                return;
+
+            if (WalletService.RemoveWallet(wallet.Id))
+                Wallets.Remove(wallet);
         }
 
         private void OnNewWallet(AddOrUpdateWalletViewModel sender, WalletEntity args)

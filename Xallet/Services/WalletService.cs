@@ -57,13 +57,13 @@ namespace Xallet.Services
             return findEntity;
         }
 
-        public void RemoveWallet(string id)
+        public bool RemoveWallet(string id)
         {
             var findWallet = Connection.Find<WalletEntity>(id);
             if (findWallet == null)
-                return;
+                return false;
 
-            Connection.Delete<WalletEntity>(findWallet.Id);
+            return Connection.Delete<WalletEntity>(findWallet.Id) > 0;
         }
 
         internal async Task SyncWithBlockchainAsync()
