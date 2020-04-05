@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Xallet.ViewModels"
+             xmlns:a="clr-namespace:Xallet"
              mc:Ignorable="d"
              Title="Blockchain Wallet"
              x:Name="Root"
@@ -61,7 +62,7 @@
                                     <StackLayout Padding="10">
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                             <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
-                                            <Image Source="tab_feed.png" HeightRequest="25" HorizontalOptions="EndAndExpand">
+                                            <Image Source="{FontImage FontFamily={StaticResource MaterialFontFamily}, Glyph={x:Static a:MaterialFont.Qrcode}, Color=Black,Size=25}" HorizontalOptions="EndAndExpand">
                                                 <Image.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding BindingContext.ShowCode, Source={x:Reference Root}}" CommandParameter="{Binding .}" />
                                                 </Image.GestureRecognizers>
