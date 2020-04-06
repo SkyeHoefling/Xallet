@@ -61,7 +61,7 @@
                                             <Label Text="{Binding Timestamp, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="CenterAndExpand" />
                                         </StackLayout>
                                         <StackLayout Grid.Column="1">
-                                            <Label Text="{Binding Tokens, Converter={StaticResource SatoshiToBitcoinConverter}}" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                                            <Label Text="{Binding Tokens}" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
                                         </StackLayout>
                                     </Grid>
                                 </Frame>

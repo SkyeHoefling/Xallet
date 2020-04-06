@@ -94,7 +94,7 @@ namespace Xallet.Services
                                 Hash = x.Hash,
                                 PublicAddress = address,
                                 Timestamp = DateTimeExtensions.UnixTimeToDateTimeUtc(x.Time),
-                                Tokens = x.Result // returns Satoshis and not BTCs
+                                Tokens = x.Result / TokenFactor
                             })
                             .ToArray();
                     }

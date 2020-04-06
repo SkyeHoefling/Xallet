@@ -8,7 +8,6 @@
              x:Class="Xallet.App">
     <Application.Resources>
         <ResourceDictionary>
-            <c:SatoshiToBitcoinConverter x:Key="SatoshiToBitcoinConverter" />
             <c:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
 
             <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">

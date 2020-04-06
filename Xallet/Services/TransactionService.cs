@@ -45,7 +45,22 @@ namespace Xallet.Services
 
             async Task EthereumAsync()
             {
-                await Task.Delay(0);
+                var etherscanService = new EtherScanService();
+                var transactions = await etherscanService.GetTransactionsAsync(address);
+
+                foreach (var item in transactions)
+                {
+                    var currentTransaction = Connection.Find<TransactionEntity>(item.Hash);
+                    if (currentTransaction == null)
+                        currentTransaction = new TransactionEntity();
+
+                    currentTransaction.Id = item.Hash;
+                    currentTransaction.PublicAddress = item.PublicAddress;
+                    currentTransaction.Timestamp = item.Timestamp;
+                    currentTransaction.Value = item.Tokens;
+
+                    Connection.InsertOrReplace(currentTransaction);
+                }
             }
 
             async Task BitcoinAsync()

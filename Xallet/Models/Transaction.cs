@@ -6,7 +6,7 @@ namespace Xallet.Models
     {
         public string Hash { get; set; }
         public string PublicAddress { get; set; }
-        public long Tokens { get; set; }
+        public double Tokens { get; set; }
         public DateTime Timestamp { get; set; }
     }
 }

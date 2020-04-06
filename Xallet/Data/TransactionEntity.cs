@@ -9,6 +9,6 @@ namespace Xallet.Data
         public string Id { get; set; }
         public string PublicAddress { get; set; }
         public DateTime Timestamp { get; set; }
-        public long Value { get; set; }
+        public double Value { get; set; }
     }
 }
