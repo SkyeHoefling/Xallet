@@ -21,6 +21,7 @@ namespace Xallet.ViewModels
             Edit = new Command(OnEdit);
             Back = new Command<bool>(OnBack);
             ShowCode = new Command(OnShowCode);
+            Refresh = new Command(OnRefresh);
             MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
 
             Transactions = new ObservableCollection<Transaction>(new Transaction[0]);
@@ -30,6 +31,7 @@ namespace Xallet.ViewModels
         public ICommand Edit { get; }
         public ICommand Back { get; }
         public ICommand ShowCode { get; }
+        public ICommand Refresh { get; }
 
         private Wallet _wallet;
         public Wallet Wallet
@@ -43,6 +45,13 @@ namespace Xallet.ViewModels
         {
             get => _transactions;
             set => SetProperty(ref _transactions, value);
+        }
+
+        private bool _isRefreshing;
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set => SetProperty(ref _isRefreshing, value);
         }
 
         private async void Initialize()
@@ -90,6 +99,22 @@ namespace Xallet.ViewModels
 
             App.Current.MainPage.Navigation.PushAsync(new AddressCodePage(Wallet));
             _isBusy = false;
+        }
+
+        private async void OnRefresh()
+        {
+            if (IsRefreshing)
+                return;
+
+            IsRefreshing = true;
+
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                await TransactionService.SyncWithBlockchainAsync(Wallet.Address);
+                LoadData();
+            }
+
+            IsRefreshing = false;
         }
 
         private void OnNewWallet(AddOrUpdateWalletViewModel sender, WalletEntity args)
