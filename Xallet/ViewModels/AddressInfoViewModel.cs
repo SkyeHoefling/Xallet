@@ -1,8 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xallet.Data;
 using Xallet.Models;
+using Xallet.Services;
 using Xallet.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Xallet.ViewModels
@@ -10,15 +13,18 @@ namespace Xallet.ViewModels
     public class AddressInfoViewModel : BindableBase
     {
         private bool _isBusy = false;
+        protected TransactionService TransactionService { get; }
         public AddressInfoViewModel(Wallet wallet)
         {
+            TransactionService = new TransactionService();
             Wallet = wallet;
             Edit = new Command(OnEdit);
             Back = new Command<bool>(OnBack);
             ShowCode = new Command(OnShowCode);
             MessagingCenter.Instance.Subscribe<AddOrUpdateWalletViewModel, WalletEntity>(this, "AddOrUpdateWallet", OnNewWallet);
 
-            Transactions = new ObservableCollection<string>(new[] { "Hello", "World" });
+            Transactions = new ObservableCollection<Transaction>(new Transaction[0]);
+            Initialize();
         }
 
         public ICommand Edit { get; }
@@ -32,11 +38,27 @@ namespace Xallet.ViewModels
             set => SetProperty(ref _wallet, value);
         }
 
-        private ObservableCollection<string> _transactions;
-        public ObservableCollection<string> Transactions
+        private ObservableCollection<Transaction> _transactions;
+        public ObservableCollection<Transaction> Transactions
         {
             get => _transactions;
             set => SetProperty(ref _transactions, value);
+        }
+
+        private async void Initialize()
+        {
+            LoadData();
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                await TransactionService.SyncWithBlockchainAsync(Wallet.Address);
+                LoadData();
+            }
+        }
+
+        private void LoadData()
+        {
+            var items = TransactionService.GetTransactions(Wallet.Address);
+            Transactions = new ObservableCollection<Transaction>(items);
         }
 
         private void OnEdit()

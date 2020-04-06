@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xallet.Models;
 
 namespace Xallet.Services
 {
@@ -6,5 +7,6 @@ namespace Xallet.Services
     {
         Task<double[]> GetAccountBalanceAsync(params string[] address);
         Task<double> GetCryptoValueAsync();
+        Task<Transaction[]> GetTransactionsAsync(string address);
     }
 }

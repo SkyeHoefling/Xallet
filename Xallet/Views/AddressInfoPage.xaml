@@ -56,10 +56,10 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <StackLayout Grid.Column="0">
-                                        <Label Text="5 BTC" />
+                                        <Label Text="{Binding Timestamp, Converter={StaticResource DateTimeToStringConverter}}" VerticalOptions="CenterAndExpand" />
                                     </StackLayout>
                                     <StackLayout Grid.Column="1">
-                                        <Label Text="In Progress" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
+                                        <Label Text="{Binding Tokens, Converter={StaticResource SatoshiToBitcoinConverter}}" HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand" />
                                     </StackLayout>
                                 </Grid>
                             </Frame>

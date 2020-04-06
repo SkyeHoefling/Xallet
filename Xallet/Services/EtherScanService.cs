@@ -61,5 +61,10 @@ namespace Xallet.Services
 
             return 0;
         }
+
+        public Task<Transaction[]> GetTransactionsAsync(string address)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

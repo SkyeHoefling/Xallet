@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Xallet.Extensions;
 using Xallet.Models;
 
 namespace Xallet.Services
@@ -12,6 +14,7 @@ namespace Xallet.Services
     {
         private const string API_Accounts = "https://blockchain.info/balance?active={0}";
         private const string API_Price = "https://blockchain.info/ticker";
+        private const string API_Transactions = "https://blockchain.info/rawaddr/{0}";
         private const double TokenFactor = 100000000;
         public async Task<double[]> GetAccountBalanceAsync(params string[] addresses)
         {
@@ -70,6 +73,38 @@ namespace Xallet.Services
             }
             
             return 0;
+        }
+
+        public async Task<Transaction[]> GetTransactionsAsync(string address)
+        {
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    var route = string.Format(API_Transactions, address);
+                    var result = await client.GetAsync(route);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var content = await result.Content.ReadAsStringAsync();
+                        var model = JsonConvert.DeserializeObject<BlockchainRawAddress>(content);
+
+                        return model.Transactions
+                            .Select(x => new Transaction
+                            {
+                                Hash = x.Hash,
+                                PublicAddress = address,
+                                Timestamp = DateTimeExtensions.UnixTimeToDateTimeUtc(x.Time),
+                                Tokens = x.Result // returns Satoshis and not BTCs
+                            })
+                            .ToArray();
+                    }
+                }
+            }
+                catch
+            {
+            }
+
+            return new Transaction[0];
         }
     }
 }

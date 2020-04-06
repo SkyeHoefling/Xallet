@@ -16,6 +16,7 @@ namespace Xallet.Services
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "wallets.db");
             Connection = new SQLiteConnection(dbPath, SQLiteOpenFlags.Create | SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.FullMutex);
             Connection.CreateTable<WalletEntity>();
+            Connection.CreateTable<TransactionEntity>();
         }
 
         public IEnumerable<WalletEntity> GetWallets()
