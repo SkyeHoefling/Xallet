@@ -23,14 +23,16 @@ namespace Xallet.Services
                 .OrderByDescending(x => x.Timestamp)
                 .FirstOrDefault();
 
-            return new ConversionRateEntity
-            {
-                Id = findLatest.Id,
-                Crypto = findLatest.Crypto,
-                Fiat = findLatest.Fiat,
-                Rate = findLatest.Rate,
-                Timestamp = findLatest.Timestamp
-            };
+            return findLatest == null ?
+                null :
+                new ConversionRateEntity
+                {
+                    Id = findLatest.Id,
+                    Crypto = findLatest.Crypto,
+                    Fiat = findLatest.Fiat,
+                    Rate = findLatest.Rate,
+                    Timestamp = findLatest.Timestamp
+                };
         }
     }
 }
