@@ -27,8 +27,6 @@ namespace Xallet.ViewModels
         public ICommand Scan { get; }
         public ICommand Save { get; }
 
-
-
         private string _name;
         public string Name
         {
@@ -51,6 +49,7 @@ namespace Xallet.ViewModels
 
             _isScanning = true;
             App.Current.MainPage.Navigation.PushAsync(new Views.ScanPage());
+            _isScanning = false;
         }
 
         private bool _isSaving = false;
@@ -62,7 +61,6 @@ namespace Xallet.ViewModels
             _isSaving = true;
             MessagingCenter.Instance.Unsubscribe<ScanViewModel, Result>(this, "QRScanReceived");
             
-
             var service = new WalletService();
             var entity = default(WalletEntity);
 
@@ -73,6 +71,7 @@ namespace Xallet.ViewModels
 
             MessagingCenter.Instance.Send(this, "AddOrUpdateWallet", entity);
             App.Current.MainPage.Navigation.PopAsync();
+            _isSaving = false;
         }
 
         private void OnScanReceived(object sender, Result args)

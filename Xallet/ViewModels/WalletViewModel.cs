@@ -100,8 +100,12 @@ namespace Xallet.ViewModels
         {
             var etherFiat = FiatService.GetCurrentRate(CryptoCurrency.Ethereum);
             var bitcoinFiat = FiatService.GetCurrentRate(CryptoCurrency.Bitcoin);
-            EtherFiatValue = etherFiat.Rate;
-            BitcoinFiatValue = bitcoinFiat.Rate;
+
+            if (etherFiat != null)
+                EtherFiatValue = etherFiat.Rate;
+
+            if (bitcoinFiat != null)
+                BitcoinFiatValue = bitcoinFiat.Rate;
 
             var wallets = WalletService
                 .GetWallets()
@@ -113,21 +117,24 @@ namespace Xallet.ViewModels
                 });
 
             Wallets = new ObservableCollection<Wallet>(wallets);
+
             TotalAmount = new Amount
             {
                 Value = Math.Round(Wallets == null || Wallets.Count() == 0 ? 0 : Wallets.Select(x => x.LocalCurrency.Value).Aggregate((x, y) => x + y), 2),
                 Currency = "USD"
             };
 
+            var etherWallets = Wallets?.Where(x => x.TokenType == CryptoCurrency.Ethereum);
             TotalEther = new Amount
             {
-                Value = Wallets.Where(x => x.TokenType == CryptoCurrency.Ethereum).Select(x => x.Token.Value).Aggregate((x, y) => x + y),
+                Value = etherWallets == null || etherWallets.Count() == 0 ? 0 : etherWallets.Select(x => x.Token.Value).Aggregate((x, y) => x + y),
                 Currency = "ETH"
             };
 
+            var bitcoinWallets = Wallets?.Where(x => x.TokenType == CryptoCurrency.Bitcoin);
             TotalBitcoin = new Amount
             {
-                Value = Wallets.Where(x => x.TokenType == CryptoCurrency.Bitcoin).Select(x => x.Token.Value).Aggregate((x, y) => x + y),
+                Value = bitcoinWallets == null || bitcoinWallets.Count() == 0 ? 0 : bitcoinWallets.Select(x => x.Token.Value).Aggregate((x, y) => x + y),
                 Currency = "BTC"
             };
         }
